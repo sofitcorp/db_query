@@ -158,4 +158,7 @@ group by od.order_group_id;
 select *
 from order_detail od
          join order_group og on od.order_group_id = og.id
-where og.order_code = 'SF-OP-20231205135929939';
+where og.order_code = 'SF-OP-20231206154513032';
+
+select * from order_detail
+where order_detail_code like 'SF-OP-20231204102907801%';

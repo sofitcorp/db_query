@@ -5,6 +5,7 @@ from order_detail od
 where od.status = 'CONFIRMED'
   and r.id is null;
 
+
 # 리뷰 누락 수동 생성
 # insert into review (created_at, product_id, status, user_id, user_name, order_detail_id)
 #     (select now(), od.product_id, 'EMPTY', u.id, u.name, od.id
