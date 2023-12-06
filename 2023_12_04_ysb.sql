@@ -90,7 +90,7 @@ where product_id in (7301, 4278, 6847, 2337, 7258, 7185)
 group by product_id, product_option_ids
 order by product_id, product_option_ids;
 
-# 콩 필라테스 총 결제 금액
+# 총 결제 금액
 select sum(t.s)
 from (select sum(price - order_detail.coupon_discount_price) s
       from order_detail

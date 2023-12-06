@@ -39,7 +39,7 @@ select product_id,
        product_option_ids,
        product_options,
        count(product_option_ids) p_cnt,
-       sum(count) c_cnt
+       sum(count)                c_cnt
 from order_detail od
          inner join product p on p.id = od.product_id
 where product_id in (2338, 1933, 4897, 4320, 2341)
@@ -56,7 +56,7 @@ select product_id,
        product_option_ids,
        product_options,
        count(product_option_ids) p_cnt,
-       sum(count) c_cnt
+       sum(count)                c_cnt
 from order_detail od
          inner join product p on p.id = od.product_id
 where product_id in (2338, 1933, 4897, 4320, 2341)
@@ -75,3 +75,11 @@ from (select sum(price - order_detail.coupon_discount_price) s
         and history not like 'FAILED'
       group by product_id,
                product_option_ids) t;
+
+select hour(created_at) hh, count(created_at)
+from order_detail
+where product_id in (2338, 1933, 4897, 4320, 2341)
+  and (created_at between '2023-12-03 00:00:00' and '2023-12-03 23:59:59')
+  and history like '%PAID%'
+group by hh
+order by hh;
