@@ -110,4 +110,11 @@ from (select sum(price - order_detail.coupon_discount_price) s
 
 
 select * from order_detail
-where product_option_ids = '121207,121214'
+where product_option_ids = '121207,121214';
+
+select hour(created_at) hh, count(created_at) from order_detail
+where product_id in (7301, 4278, 6847, 2337, 7258, 7185) and
+      (created_at between '2023-12-05 00:00:00' and '2023-12-05 23:59:59') and
+      history like '%PAID%'
+group by hh
+order by hh;
