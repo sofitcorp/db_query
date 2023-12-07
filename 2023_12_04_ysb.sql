@@ -117,7 +117,7 @@ from order_detail
 where product_id in (7301, 4278, 6847, 2337, 7258, 7185)
   and created_at > '2023-11-29 23:30:30'
 order by created_at desc;
-# Initial & Ready 개수
+# Initial & Ready & Cleared 개수
 select count(*)
 from order_detail
 where product_id in (7301, 4278, 6847, 2337, 7258, 7185)
