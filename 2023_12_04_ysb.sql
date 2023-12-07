@@ -28,15 +28,17 @@ select created_at,
        coupon_id
 from order_detail
 where product_id in (7301, 4278, 6847, 2337, 7258, 7185)
-  and created_at > '2023-11-29 23:30:30'
-  and status = 'INITIAL' or status = 'READY'
+    and created_at > '2023-11-29 23:30:30'
+    and status = 'INITIAL'
+   or status = 'READY'
 order by created_at desc;
 
 select count(id)
 from order_detail
 where product_id in (7301, 4278, 6847, 2337, 7258, 7185)
-  and created_at > '2023-11-29 23:30:30'
-  and status = 'INITIAL' or status = 'READY'
+    and created_at > '2023-11-29 23:30:30'
+    and status = 'INITIAL'
+   or status = 'READY'
 order by created_at desc;
 
 # 콩 필라테스 공구상품 주문 부분 조회
@@ -99,6 +101,7 @@ from (select sum(price - order_detail.coupon_discount_price) s
         and history not like '%CLEARED%'
         and history not like '%FAILED%'
         and history not like '%CANCELING1%'
+        and history not like '%CANCELLED%'
         and history not like '%REFUNDED1%'
         and history not like '%EXCHANGING1%'
         and history not like '%PARTIAL_CANCELING1%'
@@ -108,13 +111,38 @@ from (select sum(price - order_detail.coupon_discount_price) s
       group by product_id,
                product_option_ids) t;
 
+# 전체 개수
+select count(*)
+from order_detail
+where product_id in (7301, 4278, 6847, 2337, 7258, 7185)
+  and created_at > '2023-11-29 23:30:30'
+order by created_at desc;
+# Initial & Ready 개수
+select count(*)
+from order_detail
+where product_id in (7301, 4278, 6847, 2337, 7258, 7185)
+  and created_at > '2023-11-29 23:30:30'
+  and (status = 'INITIAL' or status = 'READY' or status = 'CLEARED')
+order by created_at desc;
+# 취소 개수
+select count(*)
+from order_detail
+where product_id in (7301, 4278, 6847, 2337, 7258, 7185)
+  and created_at > '2023-11-29 23:30:30'
+  and status = 'CANCELLED'
+order by created_at desc;
+# Forgery 개수
+select count(*)
+from order_detail
+where product_id in (7301, 4278, 6847, 2337, 7258, 7185)
+  and created_at > '2023-11-29 23:30:30'
+  and history like '%FORGERY%'
+order by created_at desc;
 
-select * from order_detail
-where product_option_ids = '121207,121214';
-
-select hour(created_at) hh, count(created_at) from order_detail
-where product_id in (7301, 4278, 6847, 2337, 7258, 7185) and
-      (created_at between '2023-12-05 00:00:00' and '2023-12-05 23:59:59') and
-      history like '%PAID%'
+select hour(created_at) hh, count(created_at)
+from order_detail
+where product_id in (7301, 4278, 6847, 2337, 7258, 7185)
+  and (created_at between '2023-12-05 00:00:00' and '2023-12-05 23:59:59')
+  and history like '%PAID%'
 group by hh
 order by hh;
