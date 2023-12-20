@@ -162,3 +162,9 @@ where og.order_code = 'SF-OP-20231206154513032';
 
 select * from order_detail
 where order_detail_code like 'SF-OP-20231204102907801%';
+
+# 주문 조회: 부분취소, 환불 여부 확인
+select * from order_detail
+where
+    history like '%PARTIAL%'
+order by created_at desc;
