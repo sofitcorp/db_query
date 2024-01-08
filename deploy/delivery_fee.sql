@@ -45,7 +45,8 @@ select id, json_length(delivery_fee_details) from order_group
 where delivery_fee_details is not null and json_length(delivery_fee_details) > 1;
 update order_group
 set delivery_fee_details = JSON_SET(delivery_fee_details, '$[2].type', 'FAR')
-where id in(17195, 17199) ;
+where id in(17195, 17199);
+# TODO: 추가 파라미터 추가 필요?
 
 
 # TODO: 기존 DB old로 변경 및 새 테이블 2제거

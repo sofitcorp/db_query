@@ -8,7 +8,8 @@ select created_at,
        user_id,
        price,
        coupon_discount_price,
-       coupon_id
+       coupon_id,
+       gift
 from order_detail
 where product_id in (6847, 2366, 6676, 6673, 2368, 4314, 4317)
   and created_at >= '2024-01-08 00:00:00'
